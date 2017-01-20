@@ -7,7 +7,6 @@ FROM debian:8
 MAINTAINER Michael Kraus, michael.kraus@consol.de
 EXPOSE 80 443 22 4730 5666 8086 9090 9100
 
-ENV REFRESHED 20160816
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN  echo 'net.ipv6.conf.default.disable_ipv6 = 1' > /etc/sysctl.d/20-ipv6-disable.conf; \
@@ -23,11 +22,13 @@ apt-get install -y omd-labs-edition-daily net-tools iputils-ping openssh-server;
 apt-get clean; \
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-COPY ./entrypoint.sh /entrypoint.sh
-
 RUN sed -i 's|echo "on"$|echo "off"|' /opt/omd/versions/default/lib/omd/hooks/TMPFS
-RUN omd create demo || true
+
+RUN omd create demo || true; \
+mv /omd/sites/demo/etc /omd/sites/demo/etc.docker
 
 VOLUME /omd/sites/demo/etc
+
+COPY ./entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
