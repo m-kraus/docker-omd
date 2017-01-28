@@ -1,3 +1,5 @@
 .DS_Store
 __*
+_files/*
 etc/*
+var/*
