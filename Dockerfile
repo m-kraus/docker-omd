@@ -25,9 +25,12 @@ rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN sed -i 's|echo "on"$|echo "off"|' /opt/omd/versions/default/lib/omd/hooks/TMPFS
 
 RUN omd create demo || true; \
-mv /omd/sites/demo/etc /omd/sites/demo/etc.docker
+mv /omd/sites/demo/etc /omd/sites/demo/etc.docker; \
+mv /omd/sites/demo/var /omd/sites/demo/var.docker
 
 VOLUME /omd/sites/demo/etc
+
+VOLUME /omd/sites/demo/var
 
 COPY ./entrypoint.sh /entrypoint.sh
 
