@@ -1,5 +1,4 @@
 .DS_Store
+site/*
 __*
 _files/*
-etc/*
-var/*

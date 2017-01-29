@@ -26,11 +26,12 @@ RUN sed -i 's|echo "on"$|echo "off"|' /opt/omd/versions/default/lib/omd/hooks/TM
 
 RUN omd create demo && \
 su - demo -c "ssh-keygen -b 2048 -t rsa -N '' -f /omd/sites/demo/.ssh/id_rsa" && \
+mv /omd/sites/demo/local /omd/sites/demo/local.docker && \
 mv /omd/sites/demo/etc /omd/sites/demo/etc.docker && \
 mv /omd/sites/demo/var /omd/sites/demo/var.docker
 
+VOLUME /omd/sites/demo/local
 VOLUME /omd/sites/demo/etc
-
 VOLUME /omd/sites/demo/var
 
 COPY ./entrypoint.sh /entrypoint.sh
