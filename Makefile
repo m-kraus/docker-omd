@@ -5,7 +5,7 @@
 
 # run 'make echo' to show the image name you're working on.
 
-TAG = 20170129
+TAG = 20170202
 
 REPO = local/$(shell basename `pwd`)
 IMAGE=$(REPO):$(TAG)
